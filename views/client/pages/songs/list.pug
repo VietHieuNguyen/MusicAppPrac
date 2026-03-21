@@ -1,0 +1,68 @@
+extends ../../layouts/default.pug
+include ../../mixins/icons.pug
+
+block main
+  .song-list-page
+    //- Header Banner
+    .song-list-banner
+      .song-list-banner__overlay
+      .song-list-banner__content
+        .song-list-banner__badges
+          span.song-list-badge PLAYLIST
+          span.song-list-updated UPDATED YESTERDAY
+        h1.song-list-banner__title= pageTitle
+        p.song-list-banner__desc #{topic.description}
+        .song-list-banner__actions
+          button.btn-play-main
+            +icon-play()
+            span Play
+          button.btn-action-circle(title="Like")
+            +icon-heart()
+          button.btn-action-circle(title="More")
+            svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24")
+              path(d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z")
+
+    //- Song Table
+    .song-table
+      //- Table Header
+      .song-table__header
+        .song-table__col.song-table__col--num #
+        .song-table__col.song-table__col--title TITLE
+        .song-table__col.song-table__col--album ALBUM
+        .song-table__col.song-table__col--date DATE ADDED
+        .song-table__col.song-table__col--duration
+          svg.song-table__clock(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24")
+            path(d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z")
+
+      //- Song Rows
+      if songs && songs.length > 0
+        each song, index in songs
+          .song-table__row(data-id=song._id)
+            .song-table__col.song-table__col--num
+              span.song-row__number= index + 1
+              span.song-row__play-icon
+                +icon-play()
+            .song-table__col.song-table__col--title
+              .song-row__info 
+                .song-row__avatar
+                  if song.avatar
+                    img(src=song.avatar alt=song.title)
+                  else
+                    .song-row__avatar-placeholder= song.title ? song.title.charAt(0) : '?'
+                .song-row__text
+                  span.song-row__name= song.title
+                  if song.infoSinger
+                    a.song-row__artist(href="#")= song.infoSinger.fullName
+                  else
+                    span.song-row__artist Unknown Artist
+            .song-table__col.song-table__col--album= pageTitle
+            .song-table__col.song-table__col--date
+              - var d = song.createdAt ? new Date(song.createdAt) : new Date()
+              - var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+              = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
+            .song-table__col.song-table__col--duration
+              button.song-row__like-btn(title="Like")
+                +icon-heart()
+              span.song-row__time --:--
+      else
+        .song-table__empty No songs found in this playlist.

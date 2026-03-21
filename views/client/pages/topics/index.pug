@@ -7,7 +7,7 @@ block main
   .topics-grid
     if topics && topics.length > 0
       each item in topics
-        a.topic-card(href=`/topics/${item.slug}`)
+        a.topic-card(href=`/songs/${item.slug}`)
           .topic-card__image
             if item.avatar
               img(src=item.avatar alt=item.title)
