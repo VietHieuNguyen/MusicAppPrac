@@ -7,6 +7,7 @@ export const topics = async(req: Request, res:Response)=>{
   })
   console.log(topic)
   res.render("client/pages/topics/index",{
+    pageTitle: "Trang chủ đề bài hát",
     topic: topic
   })
 }
