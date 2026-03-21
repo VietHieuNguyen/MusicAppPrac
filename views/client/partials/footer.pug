@@ -1,0 +1,41 @@
+include ../mixins/icons.pug
+
+footer.player-bar
+  //- Left: Song Info
+  .player-left
+    .player-thumbnail
+    .player-song-info
+      span.player-song-info__title After Hours
+      a.player-song-info__artist(href="#") The Weeknd
+    button.player-heart-btn(title="Like")
+      +icon-heart()
+
+  //- Center: Controls + Progress
+  .player-center
+    .player-controls
+      button.player-controls__btn(title="Shuffle")
+        +icon-shuffle()
+      button.player-controls__btn(title="Previous")
+        +icon-prev()
+      button.player-controls__btn.player-controls__btn--play(title="Play")
+        +icon-play()
+      button.player-controls__btn(title="Next")
+        +icon-next()
+      button.player-controls__btn(title="Repeat")
+        +icon-repeat()
+    .player-progress
+      span.player-progress__time 1:24
+      .player-progress__bar
+        .player-progress__bar-fill
+      span.player-progress__time 4:02
+
+  //- Right: Queue + Volume
+  .player-right
+    .player-queue-btn
+      +icon-queue()
+      span.player-queue-btn__label Queue
+    .player-volume
+      button.player-volume__btn(title="Volume")
+        +icon-volume()
+      .player-volume__bar
+        .player-volume__bar-fill

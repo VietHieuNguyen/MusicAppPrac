@@ -1,0 +1,24 @@
+include ../mixins/icons.pug
+
+header.header
+  //- Search Bar
+  .header-left
+    .header-search
+      span.header-search__icon
+        +icon-search()
+      input.header-search__input(type="text" placeholder="Search for songs, artists, or genres")
+
+  //- Navigation Links
+  .header-center
+    a.header-nav__link(href="/podcasts") PODCASTS
+    a.header-nav__link(href="/audiobooks") AUDIOBOOKS
+    a.header-nav__link(href="/charts") CHARTS
+
+  //- Right Icons
+  .header-right
+    button.header-icon-btn(title="Notifications")
+      +icon-notification()
+    button.header-icon-btn(title="Settings")
+      +icon-settings()
+    .header-avatar(title="Profile")
+      +icon-user()

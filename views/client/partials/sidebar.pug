@@ -1,0 +1,35 @@
+include ../mixins/icons.pug
+
+aside.sidebar
+  //- Logo
+  .sidebar-logo
+    .sidebar-logo__title Midnight Conductor
+    .sidebar-logo__subtitle YOUR SONIC STAGE
+
+  //- Navigation
+  nav.sidebar-nav
+    ul.sidebar-nav__list
+      li.sidebar-nav__item
+        a.sidebar-nav__link(href="/")
+          span.sidebar-nav__icon
+            +icon-home()
+          span HOME
+      li.sidebar-nav__item
+        a.sidebar-nav__link(href="/explore")
+          span.sidebar-nav__icon
+            +icon-explore()
+          span EXPLORE
+      li.sidebar-nav__item
+        a.sidebar-nav__link.active(href="/search")
+          span.sidebar-nav__icon
+            +icon-search()
+          span SEARCH
+      li.sidebar-nav__item
+        a.sidebar-nav__link(href="/library")
+          span.sidebar-nav__icon
+            +icon-library()
+          span YOUR LIBRARY
+
+  //- Create Playlist
+  .sidebar-actions
+    button.btn-create-playlist CREATE PLAYLIST

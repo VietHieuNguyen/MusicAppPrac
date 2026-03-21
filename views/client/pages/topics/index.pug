@@ -1,7 +1,23 @@
-extends ../../../layouts/default.pug 
-include ../../../mixins/box-head.pug 
-block main 
-  .container.my-3 
-    .row 
-      .col-12 
-          +box-head(pageTitle)
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  +box-head(pageTitle)
+
+  .topics-grid
+    if topics && topics.length > 0
+      each item in topics
+        a.topic-card(href=`/topics/${item.slug}`)
+          .topic-card__image
+            if item.avatar
+              img(src=item.avatar alt=item.title)
+            else
+              .topic-card__placeholder
+                span= item.title ? item.title.charAt(0) : "?"
+          .topic-card__info
+            h3.topic-card__title= item.title
+            if item.description
+              p.topic-card__desc= item.description
+    else
+      .topics-empty
+        p Chưa có chủ đề nào.
