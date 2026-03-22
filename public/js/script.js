@@ -202,7 +202,8 @@ if (buttonLike) {
   buttonLike.addEventListener("click", () => {
     const idSong = buttonLike.getAttribute("button-like");
     const isActive = buttonLike.classList.contains("active");
-
+    const songDetail = document.querySelector(".song-detail-hero__meta")
+    const like = songDetail.querySelector("[like]")
     const typeLike = isActive ? "dislike" : "like";
     const link = `/songs/like/${typeLike}/${idSong}`;
     const option = {
@@ -211,7 +212,10 @@ if (buttonLike) {
     fetch(link,option)
       .then((res) => res.json())
       .then((data) => {
+        like.innerHTML =`${data.like.toLocaleString()} Likes`
+
         buttonLike.classList.toggle("active");
+
       });
   });
 }

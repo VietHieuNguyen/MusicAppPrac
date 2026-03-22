@@ -31,7 +31,7 @@ block main
               span= year
             if song.like
               span.song-detail-hero__separator •
-              span #{song.like.toLocaleString()} likes
+              span(like) #{song.like.toLocaleString()} likes
 
     //- Action Buttons
     .song-detail-actions

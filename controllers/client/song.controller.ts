@@ -83,11 +83,12 @@ export const like = async (req: Request, res: Response) => {
     return res.status(404).json({ message: "Không tìm thấy bài hát" });
 
   }
-  const newLike = typeLike =="like" ? song.like! + 1 : song.like! -1;
+  const newLike = typeLike == "like" ? song.like! + 1 : song.like! -1;
     await Song.updateOne({
     _id: id
   }, { like: newLike })
   res.status(200).json({
-    message: "Thành công"
+    message: "Thành công",
+    like: newLike
   })
 }
