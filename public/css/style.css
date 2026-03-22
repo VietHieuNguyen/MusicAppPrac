@@ -1425,3 +1425,17 @@ button {
 .btn-action-circle.active svg path {
   fill: #1db954; /* Màu xanh lá cây (giống màu xanh của Spotify) */
 }
+
+/* Nút thêm vào danh sách yêu thích */
+.btn-action-circle .icon-added{
+  display: none
+}
+.btn-action-circle.active .icon-add{
+  display: none
+}
+.btn-action-circle.active .icon-added{
+  display: block
+}
+.btn-action-circle.active {
+  border-color: #1db954;
+}
