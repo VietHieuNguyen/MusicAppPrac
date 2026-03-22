@@ -2,6 +2,9 @@ import { Request, Response } from "express"
 import Topic from "../../models/topic.model";
 import Song from "../../models/songs.model";
 import Singer from "../../models/singer.model";
+
+
+//[GET] /songs/:slugTopic
 export const list = async (req: Request, res: Response)=>{
   const id: string = req.params.slugTopic as string;
   const topic = await Topic.findOne({
@@ -35,4 +38,33 @@ export const list = async (req: Request, res: Response)=>{
     songs: songs,
     topic: topic
   })
+}
+
+//[GET] /songs/detail/:slugSong
+export const detail = async(req: Request, res: Response)=>{
+  const redirectUrl : string = req.get("Referer")!
+  const song = await Song.findOne({
+    slug: req.params.slugSong,
+    deleted: false,
+    status: "active"
+  })
+  if(!song){
+    return res.redirect(redirectUrl)
+  }
+  const singer = await Singer.findOne({
+    _id: song.singerId,
+    deleted: false,
+    status: "active"
+  })
+  const topic = await Topic.findOne({
+    _id: song.topicId,
+    deleted: false
+  })
+  res.render("client/pages/songs/detail",{
+    pageTitle: song.title,
+    song: song,
+    singer: singer,
+    topic: topic
+  })
+
 }

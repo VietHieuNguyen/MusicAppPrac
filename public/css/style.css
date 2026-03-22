@@ -1078,3 +1078,345 @@ button {
   color: var(--text-muted);
   font-size: 15px;
 }
+
+/* ===== Song Detail Page ===== */
+.song-detail-page {
+  margin: -24px;
+}
+
+/* Hero Section */
+.song-detail-hero {
+  position: relative;
+  padding: 40px 32px;
+  min-height: 280px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.song-detail-hero__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #c0392b 0%, #8e44ad 50%, #2c3e50 100%);
+  background-size: cover;
+  background-position: center;
+  filter: blur(40px) brightness(0.6);
+  transform: scale(1.2);
+}
+
+.song-detail-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 0%, rgba(18, 18, 18, 0.7) 100%);
+}
+
+.song-detail-hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  width: 100%;
+}
+
+.song-detail-hero__cover {
+  width: 200px;
+  height: 200px;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.song-detail-hero__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.song-detail-hero__cover-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent), #148a3c);
+}
+
+.song-detail-hero__cover-placeholder svg {
+  width: 64px;
+  height: 64px;
+  fill: var(--text-primary);
+}
+
+.song-detail-hero__info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.song-detail-hero__type {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.song-detail-hero__title {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.1;
+  letter-spacing: -1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.song-detail-hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.song-detail-hero__artist-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.song-detail-hero__artist {
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: text-decoration 0.2s;
+}
+
+.song-detail-hero__artist:hover {
+  text-decoration: underline;
+}
+
+.song-detail-hero__separator {
+  color: var(--text-muted);
+}
+
+/* Action Buttons */
+.song-detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 32px;
+}
+
+.btn-play-big {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  color: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.2s;
+  box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+}
+
+.btn-play-big:hover {
+  transform: scale(1.06);
+  background-color: var(--accent-hover);
+}
+
+.btn-play-big:active {
+  transform: scale(0.98);
+}
+
+.btn-play-big svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+/* Play button visual state handled via JS class toggle */
+
+.btn-action-circle--lg {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.btn-action-circle--lg:hover {
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+.btn-action-circle--lg svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Body: Lyrics + Artist */
+.song-detail-body {
+  display: flex;
+  gap: 40px;
+  padding: 8px 32px 32px;
+}
+
+/* Lyrics Section */
+.song-detail-lyrics {
+  flex: 1;
+  min-width: 0;
+}
+
+.song-detail-lyrics__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.song-detail-lyrics__content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lyrics-line {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  transition: color 0.3s;
+  padding: 2px 0;
+}
+
+.lyrics-line.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.lyrics-line:hover {
+  color: var(--text-primary);
+}
+
+.song-detail-lyrics__empty {
+  color: var(--text-muted);
+  font-size: 15px;
+  padding: 40px 0;
+}
+
+/* Artist Card */
+.song-detail-artist {
+  width: 240px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-top: 32px;
+}
+
+.song-detail-artist__avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--bg-hover);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.song-detail-artist__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.song-detail-artist__avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-hover);
+}
+
+.song-detail-artist__avatar-placeholder svg {
+  width: 48px;
+  height: 48px;
+  fill: var(--text-muted);
+}
+
+.song-detail-artist__info {
+  text-align: center;
+}
+
+.song-detail-artist__label {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.song-detail-artist__name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 4px;
+}
+
+/* ===== Player Bar Active States ===== */
+.player-bar .player-controls__btn--play .icon-play,
+.player-bar .player-controls__btn--play .icon-pause {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Progress bar cursor on hover */
+.player-progress__bar {
+  cursor: pointer;
+}
+
+.player-volume__bar {
+  cursor: pointer;
+}
+
+/* Active control button states */
+.player-controls__btn.active {
+  color: var(--accent);
+}
+
+.player-controls__btn.active:hover {
+  color: var(--accent-hover);
+}
+
+/* Play button playing state on detail page */
+.btn-play-big.playing {
+  background-color: var(--accent);
+}
+
+

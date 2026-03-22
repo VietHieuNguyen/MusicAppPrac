@@ -50,7 +50,8 @@ block main
                   else
                     .song-row__avatar-placeholder= song.title ? song.title.charAt(0) : '?'
                 .song-row__text
-                  span.song-row__name= song.title
+                  span.song-row__name
+                    a(href=`/songs/detail/${song.slug}`)= song.title
                   if song.infoSinger
                     a.song-row__artist(href="#")= song.infoSinger.fullName
                   else

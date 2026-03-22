@@ -1,0 +1,92 @@
+extends ../../layouts/default.pug
+include ../../mixins/icons.pug
+
+block main
+  .song-detail-page
+    //- Hero Section with gradient background
+    .song-detail-hero
+      .song-detail-hero__gradient(style=song.avatar ? `background-image: url(${song.avatar})` : '')
+      .song-detail-hero__overlay
+      .song-detail-hero__content
+        .song-detail-hero__cover
+          if song.avatar
+            img(src=song.avatar alt=song.title)
+          else
+            .song-detail-hero__cover-placeholder
+              +icon-play()
+        .song-detail-hero__info
+          span.song-detail-hero__type Bài hát
+          h1.song-detail-hero__title= song.title
+          .song-detail-hero__meta
+            if singer && singer.avatar
+              img.song-detail-hero__artist-avatar(src=singer.avatar alt=singer.fullName)
+            if singer
+              a.song-detail-hero__artist(href="#")= singer.fullName
+            if topic
+              span.song-detail-hero__separator •
+              span= topic.title
+            if song.createdAt
+              span.song-detail-hero__separator •
+              - var year = new Date(song.createdAt).getFullYear()
+              span= year
+            if song.like
+              span.song-detail-hero__separator •
+              span #{song.like.toLocaleString()} likes
+
+    //- Action Buttons
+    .song-detail-actions
+      button.btn-play-big#btnDetailPlay(
+        data-song=song
+        data-singer=singer
+      )
+        +icon-play()
+      button.btn-action-circle.btn-action-circle--lg(title="Add to playlist")
+        svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24")
+          path(d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z")
+      button.btn-action-circle.btn-action-circle--lg(title="Download")
+        svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24")
+          path(d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z")
+      button.btn-action-circle.btn-action-circle--lg(title="More")
+        svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24")
+          path(d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z")
+
+    //- Main Content: Lyrics + Artist
+    .song-detail-body
+      //- Lyrics Section
+      .song-detail-lyrics
+        if song.lyrics
+          h2.song-detail-lyrics__title Lyrics
+          .song-detail-lyrics__content
+            - var lines = song.lyrics.split('\n')
+            each line, idx in lines
+              if line.trim()
+                p.lyrics-line(data-line=idx)= line
+              else
+                br
+        else
+          .song-detail-lyrics__empty
+            p Chưa có lyrics cho bài hát này.
+
+      //- Artist Card
+      if singer
+        .song-detail-artist
+          .song-detail-artist__avatar
+            if singer.avatar
+              img(src=singer.avatar alt=singer.fullName)
+            else
+              .song-detail-artist__avatar-placeholder
+                svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24")
+                  path(d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z")
+          .song-detail-artist__info
+            span.song-detail-artist__label Artist
+            h3.song-detail-artist__name= singer.fullName
+
+
+  //- Có thể dùng cách này đưa data vào window thay vì dưa vào thẻ html
+  //- script.
+  //-   window.__songData = {
+  //-     audio: "#{song.audio}",
+  //-     title: "#{song.title}",
+  //-     artist: "#{singer ? singer.fullName : 'Unknown'}",
+  //-     cover: "#{song.avatar || ''}"
+  //-   };
