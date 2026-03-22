@@ -6,7 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
   var playerThumbnail = document.getElementById("playerThumbnail");
   var btnPlayPause = document.getElementById("btnPlayPause");
   var iconPlay = btnPlayPause ? btnPlayPause.querySelector(".icon-play") : null;
-  var iconPause = btnPlayPause ? btnPlayPause.querySelector(".icon-pause") : null;
+  var iconPause = btnPlayPause
+    ? btnPlayPause.querySelector(".icon-pause")
+    : null;
   var progressBar = document.getElementById("playerProgressBar");
   var progressFill = document.getElementById("playerProgressFill");
   var currentTimeEl = document.getElementById("playerCurrentTime");
@@ -86,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
           cover: songData.cover || "",
         },
       ],
-      autoplay:true
+      autoplay: true,
     });
 
     // Update player bar info
@@ -104,9 +106,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    ap.on("on", function(){
-      updatePlayIcon(true)
-    })
+    ap.on("on", function () {
+      updatePlayIcon(true);
+    });
 
     ap.on("pause", function () {
       updatePlayIcon(false);
@@ -138,11 +140,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // Detail page play button
   if (btnDetailPlay) {
     btnDetailPlay.addEventListener("click", function () {
-      var dataSong = this.getAttribute("data-song")
-      dataSong = JSON.parse(dataSong)
-      var singer = this.getAttribute("data-singer")
-      singer = JSON.parse(singer)
-      initPlayer(dataSong,singer)
+      var dataSong = this.getAttribute("data-song");
+      dataSong = JSON.parse(dataSong);
+      var singer = this.getAttribute("data-singer");
+      singer = JSON.parse(singer);
+      initPlayer(dataSong, singer);
       if (ap) {
         ap.play();
       }
@@ -188,8 +190,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-//   // --- Init from page data ---
-//   if (window.__songData && window.__songData.audio) {
-//     initPlayer(window.__songData);
-//   }
+  //   // --- Init from page data ---
+  //   if (window.__songData && window.__songData.audio) {
+  //     initPlayer(window.__songData);
+  //   }
 });
+
+//Button like
+const buttonLike = document.querySelector("[button-like]");
+if (buttonLike) {
+  buttonLike.addEventListener("click", () => {
+    const idSong = buttonLike.getAttribute("button-like");
+    const isActive = buttonLike.classList.contains("active");
+
+    const typeLike = isActive ? "dislike" : "like";
+    const link = `/songs/like/${typeLike}/${idSong}`;
+    const option = {
+      method: "PATCH"
+    }
+    fetch(link,option)
+      .then((res) => res.json())
+      .then((data) => {
+        buttonLike.classList.toggle("active");
+      });
+  });
+}
+//End Button like

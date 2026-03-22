@@ -1420,3 +1420,8 @@ button {
 }
 
 
+
+/* 2. Trạng thái khi đã được thêm class "active" (khi đã like) */
+.btn-action-circle.active svg path {
+  fill: #1db954; /* Màu xanh lá cây (giống màu xanh của Spotify) */
+}
