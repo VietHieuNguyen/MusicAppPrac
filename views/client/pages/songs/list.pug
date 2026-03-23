@@ -62,7 +62,7 @@ block main
               - var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
               = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
             .song-table__col.song-table__col--duration
-              button.song-row__like-btn(title="Like")
+              button.song-row__like-btn(title="Like" button-favorite=song._id)
                 +icon-heart()
               span.song-row__time --:--
       else

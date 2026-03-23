@@ -1,0 +1,102 @@
+extends ../../layouts/default.pug
+include ../../mixins/icons.pug
+
+block main
+  - const playlistSongs = Array.isArray(songs) ? songs : [];
+  - const playlistCount = typeof totalSongs === "number" ? totalSongs : playlistSongs.length;
+  - const playlistLikes = playlistSongs.reduce((total, song) => total + (song.like || 0), 0);
+  - const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  - const formatDate = function(value) { if (!value) return "--"; const date = new Date(value); if (Number.isNaN(date.getTime())) return "--"; return monthNames[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear(); };
+
+  .favorite-songs-page
+    .favorite-songs-hero
+      .favorite-songs-hero__background
+      .favorite-songs-hero__content
+        .favorite-songs-cover
+          .favorite-songs-cover__glow
+          .favorite-songs-cover__icon
+            +icon-heart()
+
+        .favorite-songs-hero__info
+          span.favorite-songs-hero__eyebrow Playlist
+          h1.favorite-songs-hero__title= pageTitle || "Liked Songs"
+          p.favorite-songs-hero__description A dedicated space for every track you have saved, revisited, and kept close.
+          .favorite-songs-hero__meta
+            .favorite-songs-hero__owner
+              span.favorite-songs-hero__owner-badge M
+              span Midnight Conductor
+            span.favorite-songs-hero__separator
+            span #{countPlaylist} #{countPlaylist === 1 ? "song" : "songs"}
+            if countPlaylist > 0
+              span.favorite-songs-hero__separator
+              span #{totalLikes.toLocaleString()} likes
+
+    .favorite-songs-body
+      .favorite-songs-actions
+        button.btn-play-big.favorite-songs-actions__play(type="button" title="Play playlist")
+          +icon-play()
+        button.favorite-songs-action-btn(type="button" title="Shuffle")
+          +icon-shuffle()
+        button.favorite-songs-action-btn(type="button" title="Download")
+          svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24")
+            path(d="M5 20h14v-2H5zm7-18v12.17l3.59-3.58L17 12l-5 5-5-5 1.41-1.41L11 14.17V2z")
+        button.favorite-songs-action-btn(type="button" title="More")
+          svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24")
+            path(d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z")
+
+      .favorite-songs-table-wrap
+        .favorite-songs-table
+          .favorite-songs-table__header
+            .favorite-songs-table__head.favorite-songs-table__head--index #
+            .favorite-songs-table__head Title
+            .favorite-songs-table__head.favorite-songs-table__head--album Album
+            .favorite-songs-table__head.favorite-songs-table__head--date Date added
+            .favorite-songs-table__head.favorite-songs-table__head--duration
+              svg.favorite-songs-table__clock(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24")
+                path(d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z")
+
+          if favoriteSongs.length > 0
+            each song, index in favoriteSongs
+              .favorite-songs-table__row
+                .favorite-songs-table__cell.favorite-songs-table__cell--index
+                  span.favorite-songs-track__index= index + 1
+                  span.favorite-songs-track__play
+                    +icon-play()
+
+                .favorite-songs-table__cell.favorite-songs-table__cell--title
+                  .favorite-songs-track
+                    a.favorite-songs-track__cover(href=`/songs/detail/${song.infoSong.slug}`)
+                      if song.infoSong.avatar
+                        img(src=song.infoSong.avatar alt=song.infoSong.title)
+                      else
+                        span.favorite-songs-track__cover-fallback= song.infoSong.title ? song.infoSong.title.charAt(0) : "?"
+                    .favorite-songs-track__text
+                      a.favorite-songs-track__title(href=`/songs/detail/${song.slug}`)= song.title
+                      if song.infoSinger
+                        span.favorite-songs-track__artist= song.infoSinger.fullName
+                      else
+                        span.favorite-songs-track__artist Unknown artist
+
+                .favorite-songs-table__cell.favorite-songs-table__cell--album
+                  if song.infoTopic
+                    span= song.infoTopic.title
+                  else
+                    span Singles
+
+                .favorite-songs-table__cell.favorite-songs-table__cell--date= formatDate(song.favoriteCreatedAt || song.createdAt)
+
+                .favorite-songs-table__cell.favorite-songs-table__cell--duration
+                  button.favorite-songs-track__saved.active(
+                    type="button"
+                    button-favorite=song.infoSong.id
+                    title="Remove from favorites"
+                  )
+                    +icon-heart()
+                  span.favorite-songs-track__time= song.duration || "--:--"
+          else
+            .favorite-songs-empty
+              .favorite-songs-empty__icon
+                +icon-heart()
+              h2.favorite-songs-empty__title No favorite songs yet
+              p.favorite-songs-empty__text Start saving tracks you love and they will appear here in a playlist-style view.
+              a.favorite-songs-empty__link(href="/topics") Browse topics

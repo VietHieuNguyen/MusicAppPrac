@@ -1,5 +1,7 @@
 include ../mixins/icons.pug
 
+- var currentPage = typeof pageActive !== "undefined" ? pageActive : "topics"
+
 aside.sidebar
   //- Logo
   .sidebar-logo
@@ -10,30 +12,31 @@ aside.sidebar
   nav.sidebar-nav
     ul.sidebar-nav__list
       li.sidebar-nav__item
-        a.sidebar-nav__link(href="/")
+        a.sidebar-nav__link(class=currentPage === "home" ? "active" : "" href="/")
           span.sidebar-nav__icon
             +icon-home()
           span HOME
       li.sidebar-nav__item
-        a.sidebar-nav__link(href="/explore")
+        a.sidebar-nav__link(class=currentPage === "explore" ? "active" : "" href="/explore")
           span.sidebar-nav__icon
             +icon-explore()
           span EXPLORE
       li.sidebar-nav__item
-        a.sidebar-nav__link(href="/search")
+        a.sidebar-nav__link(class=currentPage === "search" ? "active" : "" href="/search")
           span.sidebar-nav__icon
             +icon-search()
           span SEARCH
       li.sidebar-nav__item
-        a.sidebar-nav__link.active(href="/topics")
+        a.sidebar-nav__link(class=currentPage === "topics" ? "active" : "" href="/topics")
           span.sidebar-nav__icon
             +icon-topics()
           span TOPICS
       li.sidebar-nav__item
-        a.sidebar-nav__link(href="/library")
+        a.sidebar-nav__link(class=currentPage === "favorite-songs" ? "active" : "" href="/favorite-songs")
           span.sidebar-nav__icon
-            +icon-library()
-          span YOUR LIBRARY
+            +icon-heart()
+          span LIKED SONGS
+      
 
   //- Create Playlist
   .sidebar-actions
