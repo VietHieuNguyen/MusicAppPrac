@@ -118,6 +118,19 @@ document.addEventListener("DOMContentLoaded", function () {
       updatePlayIcon(false);
       if (progressFill) progressFill.style.width = "0%";
       if (currentTimeEl) currentTimeEl.textContent = "0:00";
+      const link = `/songs/listen/${songData._id}`;
+      const option = {
+        method: "PATCH"
+      }
+      fetch(link,option)
+        .then(res => res.json())
+        .then(data=>{
+          if(data==200){
+            const elementListenSpan = document.querySelector(".song-detail-hero__meta")
+            const span = elementListenSpan.querySelector("[listen]");
+            span.innerHTML = `${data.listen} listens`
+          }
+        })
     });
 
     // Set initial volume display

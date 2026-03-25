@@ -6,7 +6,14 @@ const songSchema = new mongoose.Schema({
   description: String,
   singerId: String,
   topicId: String,
-  like: Number,
+  like: {
+    type: Number,
+    default: 0
+  },
+  listen: {
+    type: Number,
+    default: 0
+  },
   lyrics: String,
   audio: String,
   status: String,

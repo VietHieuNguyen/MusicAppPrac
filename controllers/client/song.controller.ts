@@ -99,6 +99,8 @@ export const like = async (req: Request, res: Response) => {
     like: newLike
   })
 }
+
+//[PATCH] /songs/favorite/:typeFavorite/:idSong
 export const favorite = async (req: Request, res: Response)=>{
   const id = req.params.idSong;
   const type = req.params.typeFavorite;
@@ -128,5 +130,32 @@ export const favorite = async (req: Request, res: Response)=>{
   res.status(200).json({
     code: 200,
     message: "Thành công"
+  })
+}
+
+//[PATCH] /songs/listen/:idSong
+export const listen = async (req: Request, res: Response) => {
+  const id = req.params.idSong;
+
+
+  const song = await Song.findOne({
+    _id: id,
+    status: "active",
+    deleted: false
+  })
+  const listen: number = song!.listen + 1;
+  if (!song) {
+    return res.status(404).json({ message: "Không tìm thấy bài hát" });
+
+  }
+  await Song.updateOne({
+    _id: id
+  }, { listen: listen })
+  const songNew = await Song.findOne({
+    _id: id
+  })
+  res.status(200).json({
+    message: "Thành công",
+    listen: songNew!.listen
   })
 }

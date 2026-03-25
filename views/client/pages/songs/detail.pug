@@ -32,6 +32,9 @@ block main
             if song.like
               span.song-detail-hero__separator •
               span(like) #{song.like.toLocaleString()} likes
+            if song.like
+              span.song-detail-hero__separator •
+              span(listen) #{song.listen.toLocaleString()} listens
 
     //- Action Buttons
     .song-detail-actions
