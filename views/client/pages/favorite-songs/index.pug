@@ -92,7 +92,7 @@ block main
                     title="Remove from favorites"
                   )
                     +icon-heart()
-                  span.favorite-songs-track__time= song.duration || "--:--"
+                  span.favorite-songs-track__time= song.infoSong.duration || "--:--"
           else
             .favorite-songs-empty
               .favorite-songs-empty__icon

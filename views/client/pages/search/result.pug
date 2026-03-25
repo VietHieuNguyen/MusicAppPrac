@@ -1,0 +1,83 @@
+extends ../../layouts/default.pug
+
+block main
+  - const recentSongs = songs && songs.length ? songs.slice(0, 3) : []
+  - const fallbackRecent = [{ title: "Lofi Girl", meta: "Artist", tone: "warm", initial: "LG" }, { title: "Daily Mix 1", meta: "Made for you", tone: "laser", initial: "DM" }, { title: "The Midnight Mic", meta: "Podcast - Conductor", tone: "studio", initial: "TM" }]
+  - const browseItems = [{ title: "Podcasts", accent: "#f24c00", glow: "linear-gradient(135deg, #42e2ff 0%, #1cb5e0 100%)", tag: "Talk" }, { title: "New Releases", accent: "#2b3f82", glow: "linear-gradient(135deg, #f6d365 0%, #fda085 100%)", tag: "Fresh" }, { title: "Pop", accent: "#189300", glow: "linear-gradient(135deg, #2f1c00 0%, #ffcf67 100%)", tag: "Vocal" }, { title: "Hip-Hop", accent: "#c46b00", glow: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)", tag: "Bars" }, { title: "Rock", accent: "#ea0f2f", glow: "linear-gradient(135deg, #1b2430 0%, #f97316 100%)", tag: "Live" }, { title: "Chill", accent: "#d13f58", glow: "linear-gradient(135deg, #dff6f0 0%, #7bc6cc 100%)", tag: "Calm" }, { title: "Electronic", accent: "#6a52ff", glow: "linear-gradient(135deg, #201c42 0%, #f6ad55 100%)", tag: "Night" }, { title: "Indie", accent: "#6e8d00", glow: "linear-gradient(135deg, #3d2f1f 0%, #f6ad55 100%)", tag: "Stage" }]
+
+  .search-page
+    .search-page__hero
+      .search-page__hero-copy
+        span.search-page__eyebrow Midnight Conductor
+        h1.search-page__title Search your next obsession
+        p.search-page__subtitle Find songs, artists, playlists and moods in one place.
+
+      if keyword
+        .search-page__query
+          span.search-page__query-label Results for
+          strong.search-page__query-value= `"${keyword}"`
+          span.search-page__query-count= `${songs.length} track${songs.length === 1 ? "" : "s"}`
+
+    .search-section
+      .search-section__head
+        h2.search-section__title Recent searches
+        a.search-section__action(href=keyword ? `/search/result?keyword=${encodeURIComponent(keyword)}` : "/search/result") Show all
+
+      .search-recent-grid
+        if recentSongs.length
+          each song in recentSongs
+            a.search-recent-card(href=`/songs/detail/${song.slug}`)
+              .search-recent-card__media(class=song.avatar ? "" : "search-recent-card__media--placeholder")
+                if song.avatar
+                  img(src=song.avatar alt=song.title)
+                else
+                  span.search-recent-card__initial= song.title ? song.title.charAt(0) : "M"
+              .search-recent-card__body
+                h3.search-recent-card__title= song.title
+                p.search-recent-card__meta= song.infoSinger ? song.infoSinger.fullName : "Artist"
+                if song.duration
+                  span.search-recent-card__pill= song.duration
+        else
+          each item in fallbackRecent
+            .search-recent-card
+              .search-recent-card__media.search-recent-card__media--placeholder(class=`search-recent-card__media--${item.tone}`)
+                span.search-recent-card__initial= item.initial
+              .search-recent-card__body
+                h3.search-recent-card__title= item.title
+                p.search-recent-card__meta= item.meta
+
+    .search-section
+      .search-section__head
+        h2.search-section__title Browse all
+
+      .search-browse-grid
+        each item in browseItems
+          a.search-browse-card(href=keyword ? `/search/result?keyword=${encodeURIComponent(item.title)}` : `/search/result?keyword=${encodeURIComponent(item.title)}` style=`--search-card-color:${item.accent}; --search-card-glow:${item.glow};`)
+            h3.search-browse-card__title= item.title
+            .search-browse-card__art
+              span.search-browse-card__tag= item.tag
+
+    if keyword
+      .search-section.search-section--results
+        .search-section__head
+          h2.search-section__title Matching tracks
+          span.search-section__caption= `${songs.length} result${songs.length === 1 ? "" : "s"}`
+
+        if songs.length
+          .search-results-list
+            each song, index in songs
+              a.search-result-row(href=`/songs/detail/${song.slug}`)
+                span.search-result-row__index= index + 1
+                .search-result-row__cover(class=song.avatar ? "" : "search-result-row__cover--placeholder")
+                  if song.avatar
+                    img(src=song.avatar alt=song.title)
+                  else
+                    span.search-result-row__cover-fallback= song.title ? song.title.charAt(0) : "M"
+                .search-result-row__info
+                  span.search-result-row__title= song.title
+                  span.search-result-row__artist= song.infoSinger ? song.infoSinger.fullName : "Unknown artist"
+                span.search-result-row__meta= song.duration ? song.duration : "Single"
+        else
+          .search-results-empty
+            h3.search-results-empty__title No matching tracks
+            p.search-results-empty__text Try another keyword or pick one of the genres above.

@@ -64,6 +64,6 @@ block main
             .song-table__col.song-table__col--duration
               button.song-row__like-btn(title="Like" button-favorite=song._id)
                 +icon-heart()
-              span.song-row__time --:--
+              span.song-row__time #{song.duration}
       else
         .song-table__empty No songs found in this playlist.

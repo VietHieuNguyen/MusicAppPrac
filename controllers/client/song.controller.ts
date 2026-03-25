@@ -20,7 +20,7 @@ export const list = async (req: Request, res: Response) => {
     topicId: topic.id,
     status: "active",
     deleted: false
-  }).select("avatar title slug singerId like").lean()
+  }).select("avatar title slug singerId like duration").lean()
   if (songs.length === 0) {
     return res.redirect("/topics")
   }
@@ -32,7 +32,7 @@ export const list = async (req: Request, res: Response) => {
     });
 
     (song as any).infoSinger = infoSinger;
-
+    
   }
   res.render("client/pages/songs/list", {
     pageTitle: topic.title,
@@ -66,6 +66,7 @@ export const detail = async (req: Request, res: Response) => {
   });
   
   (song as any).isFavoriteSong = favoriteSong ? true: false;
+  
   res.render("client/pages/songs/detail", {
     pageTitle: song.title,
     song: song,

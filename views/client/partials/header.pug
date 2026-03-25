@@ -3,10 +3,15 @@ include ../mixins/icons.pug
 header.header
   //- Search Bar
   .header-left
-    .header-search
+    form.header-search(action="/search/result" method="GET")
       span.header-search__icon
         +icon-search()
-      input.header-search__input(type="text" placeholder="Search for songs, artists, or genres")
+      input.header-search__input(
+        type="text"
+        name="keyword"
+        placeholder="Search for songs, artists, or genres"
+        value=keyword
+      )
 
   //- Navigation Links
   .header-center
