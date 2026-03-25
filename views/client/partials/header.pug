@@ -3,7 +3,8 @@ include ../mixins/icons.pug
 header.header
   //- Search Bar
   .header-left
-    form.header-search(action="/search/result" method="GET")
+
+    form.header-search(action="/search/result" method="GET" autocomple=false)
       span.header-search__icon
         +icon-search()
       input.header-search__input(
@@ -12,6 +13,9 @@ header.header
         placeholder="Search for songs, artists, or genres"
         value=keyword
       )
+      .header-search__panel
+        .header-search__group
+          
 
   //- Navigation Links
   .header-center

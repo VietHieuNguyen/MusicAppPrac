@@ -3,7 +3,10 @@ import Song from "../../models/songs.model";
 import Singer from "../../models/singer.model";
 import { convertToSlug } from "../../helpers/convertToSlug";
 
+//[GET] /search/:type
 export const result = async (req: Request, res: Response) => {
+  const type = req.params.type;
+
   const keyword =
     typeof req.query.keyword === "string" ? req.query.keyword.trim() : "";
 
@@ -39,11 +42,26 @@ export const result = async (req: Request, res: Response) => {
     );
   }
 
-  res.render("client/pages/search/result", {
-    pageTitle: "Search",
-    pageActive: "search",
-    pageVariant: "search",
-    keyword,
-    songs
-  });
+
+  switch (type) {
+    case "result":
+      res.render("client/pages/search/result", {
+        pageTitle: "Search",
+        pageActive: "search",
+        pageVariant: "search",
+        keyword,
+        songs
+      });
+      break;
+    case "suggest":
+      res.json({
+        code: 200,
+        keyword,
+        songs
+      });
+      break;
+    default:
+      break;
+  }
 };
+
