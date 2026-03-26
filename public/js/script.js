@@ -80,12 +80,14 @@ document.addEventListener("DOMContentLoaded", function () {
       container: document.getElementById("aplayer"),
       theme: "#1DB954",
       volume: lastVolume,
+      lrcType: 1,
       audio: [
         {
           name: songData.title || "Unknown",
           artist: singer.fullName,
           url: songData.audio,
           cover: songData.cover || "",
+          lrc: songData.lyrics
         },
       ],
       autoplay: true,

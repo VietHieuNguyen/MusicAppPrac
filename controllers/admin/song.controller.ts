@@ -46,7 +46,8 @@ export const createPost = async (req: Request, res: Response)=>{
     status: req.body.status,
     avatar: avatar,
     audio: audio,
-    duration: req.body.duration
+    duration: req.body.duration,
+    lyrics: req.body.lyrics
   }
   // console.log(dataSong)
   const song = new Song(dataSong);

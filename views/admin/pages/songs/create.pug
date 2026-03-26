@@ -66,6 +66,13 @@ block main
       )
       audio(controls upload-audio-play)
         source(src="")
+    div(class="form-group")
+      label(for="lyrics") Lời bài hát
+      textarea(
+        name="lyrics"
+        id="lyrics"
+        ) 
+
     div(
       class="form-group"
       upload-image
