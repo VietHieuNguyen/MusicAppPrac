@@ -5,10 +5,13 @@ import clientRoutes from "./routes/client/index.route";
 import adminRoutes from "./routes/admin/index.route";
 import { systemConfig } from "./config/config";
 import path from "node:path";
+import bodyParser = require("body-parser");
 dotenv.config()
 const app: Express = express();
 const port: number | string = process.env.PORT || 3000
 
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 database.connect()
 app.use(express.static("public"))
 app.set("views","./views")
