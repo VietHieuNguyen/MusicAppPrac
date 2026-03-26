@@ -21,3 +21,24 @@ if(uploadImage){
   }
 }
 // End upload image
+
+// Upload Audio
+const uploadAudio = document.querySelector("[upload-audio]")
+if(uploadAudio){
+  const uploadAudioInput = document.querySelector("[upload-audio-input]")
+  const uploadAudioPlay = document.querySelector("[upload-audio-play]")
+  const source = uploadAudio.querySelector("source")
+
+  uploadAudioInput.addEventListener("change",(e)=>{
+    
+    // console.log(file)
+    if(e.target.files.length){
+      
+      const audio = URL.createObjectURL(e.target.files[0]);
+      source.src = audio
+      uploadAudioPlay.load();
+    }
+  })
+  
+}
+// End upload audio

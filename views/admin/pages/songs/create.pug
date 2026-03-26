@@ -51,7 +51,10 @@ block main
         id="duration"
         placeholder="Nhập thời lượng"
       )
-    div(class="form-group")
+    div(
+      class="form-group"
+      upload-audio
+    )
       label(for="audio") Audio 
       input(
         type="file"
@@ -59,7 +62,10 @@ block main
         id="audio"
         name="audio"
         accept="audio/*"
+        upload-audio-input
       )
+      audio(controls upload-audio-play)
+        source(src="")
     div(
       class="form-group"
       upload-image
