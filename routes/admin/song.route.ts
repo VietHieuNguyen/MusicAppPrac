@@ -9,10 +9,16 @@ router.get("/", controller.index)
 router.get("/create", controller.create)
 
 router.post("/create", upload.fields([
-  { name: "avatar", maxCount: 1 }, 
-  { name: "audio", maxCount: 1}
+  { name: "avatar", maxCount: 1 },
+  { name: "audio", maxCount: 1 }
 ]), uploadCloud.uploadFields, controller.createPost)
 
+router.get("/edit/:songId", controller.edit)
+
+router.patch("/edit/:songId", upload.fields([
+  { name: "avatar", maxCount: 1 },
+  { name: "audio", maxCount: 1 }
+]), uploadCloud.uploadFields, controller.editPatch)
 
 
 export const songRoutes: Router = router;
