@@ -1,18 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "commonjs",
-    "lib": ["es2020"],
-    "removeComments": true,
-    "esModuleInterop": true,
-    "rootDir": ".",
-    "outDir": "dist",
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "types": ["node"],
-    "typeRoots": ["./node_modules/@types", "./src/@types"]
-  },
-  "include": ["."],
-  "exclude": ["node_modules", "dist"]
+    "target": "es6",// Cho phép biên dịch code TS sang ES6
+    "module": "commonjs",//CommonJS là tiêu chuẩn được sử dụng trong Node.js để làm việc với module
+    "removeComments": true, //Xóa comments khi biên dịch sang js
+    "esModuleInterop": true, //Dùng từ khóa import thay cho require
+    "outDir": "dist"
+  }
+
 }
