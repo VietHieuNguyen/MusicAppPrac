@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.ts",
-    "build": "tsc && node copy-dir.js"
+   "build": "rimraf dist && tsc && node copy-dir.js",
+    "prepare": "husky"
   },
   "author": "",
   "license": "ISC",
@@ -31,9 +32,13 @@
     "@types/streamifier": "^0.1.2",
     "@types/unidecode": "^1.1.0",
     "fs-extra": "^11.3.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "nodemon": "^3.1.14",
+    "rimraf": "^6.1.3",
     "streamifier": "^0.1.1",
     "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }
