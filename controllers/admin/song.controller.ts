@@ -63,7 +63,7 @@ export const edit = async(req: Request, res: Response)=>{
     _id:id,
     deleted: false
   })
-  console.log(song)
+  // console.log(song)
   const topics = await Topic.find({
     deleted: false
   })
