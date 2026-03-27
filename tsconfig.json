@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2020",
     "module": "commonjs",
+    "lib": ["es2020"],
     "removeComments": true,
     "esModuleInterop": true,
     "rootDir": ".",
@@ -9,6 +10,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "types": ["node"],
     "typeRoots": ["./node_modules/@types", "./src/@types"]
   },
   "include": ["."],
